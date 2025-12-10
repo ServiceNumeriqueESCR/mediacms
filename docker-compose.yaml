@@ -21,12 +21,11 @@ services:
         condition: service_healthy
       db:
         condition: service_healthy
+
   web:
     image: mediacms/mediacms:latest
     deploy:
       replicas: 1
-    ports:
-      - "9000:80"
     volumes:
       - ./:/home/mediacms.io/mediacms/
     environment:
@@ -36,6 +35,10 @@ services:
       ENABLE_MIGRATIONS: 'no'
     depends_on:
       - migrations
+    networks:
+      - default
+      - dokploy-network
+
   celery_beat:
     image: mediacms/mediacms:latest
     volumes:
@@ -48,6 +51,7 @@ services:
       ENABLE_MIGRATIONS: 'no'
     depends_on:
       - redis
+
   celery_worker:
     image: mediacms/mediacms:latest
     deploy:
@@ -61,6 +65,7 @@ services:
       ENABLE_MIGRATIONS: 'no'
     depends_on:
       - migrations
+
   db:
     image: postgres:17.2-alpine
     volumes:
@@ -76,6 +81,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   redis:
     image: "redis:alpine"
     restart: always
@@ -84,3 +90,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+
+networks:
+  dokploy-network:
+    external: true   # 👉 réseau déjà créé par Dokploy / Traefik
