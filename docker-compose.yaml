@@ -1,8 +1,11 @@
+version: "3"
+
 services:
   migrations:
     image: mediacms/mediacms:latest
-    volumes:
-      - ./:/home/mediacms.io/mediacms/
+    # ❌ on ne monte plus ./ sur le code
+    # volumes:
+    #   - ./:/home/mediacms.io/mediacms/
     environment:
       ENABLE_UWSGI: 'no'
       ENABLE_NGINX: 'no'
@@ -24,8 +27,13 @@ services:
     image: mediacms/mediacms:latest
     deploy:
       replicas: 1
-    volumes:
-      - ./:/home/mediacms.io/mediacms/
+    # si tu passes par Traefik, tu peux enlever complètement "ports:"
+    # sinon, pour un test direct : 80:80
+    # ports:
+    #   - "80:80"
+    # ❌ on ne monte plus ./ sur le code
+    # volumes:
+    #   - ./:/home/mediacms.io/mediacms/
     environment:
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_CELERY_SHORT: 'no'
@@ -35,12 +43,12 @@ services:
       - migrations
     networks:
       - default
-      - dokploy-network
+      - dokploy-network   # ✅ pour que Traefik le voie
 
   celery_beat:
     image: mediacms/mediacms:latest
-    volumes:
-      - ./:/home/mediacms.io/mediacms/
+    # volumes:
+    #   - ./:/home/mediacms.io/mediacms/
     environment:
       ENABLE_UWSGI: 'no'
       ENABLE_NGINX: 'no'
@@ -54,8 +62,8 @@ services:
     image: mediacms/mediacms:latest
     deploy:
       replicas: 1
-    volumes:
-      - ./:/home/mediacms.io/mediacms/
+    # volumes:
+    #   - ./:/home/mediacms.io/mediacms/
     environment:
       ENABLE_UWSGI: 'no'
       ENABLE_NGINX: 'no'
@@ -91,4 +99,4 @@ services:
 
 networks:
   dokploy-network:
-    external: true   # 👉 réseau déjà créé par Dokploy / Traefik
+    external: true
