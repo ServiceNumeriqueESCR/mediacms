@@ -8,7 +8,7 @@ REDIS_LOCATION = os.getenv('REDIS_LOCATION', 'redis://redis:6379/1')
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('POSTGRES_NAME', 'mediacms'),
+        "NAME": os.getenv('POSTGRES_NAME', 'Tube ESCR'),
         "HOST": os.getenv('POSTGRES_HOST', 'db'),
         "PORT": os.getenv('POSTGRES_PORT', '5432'),
         "USER": os.getenv('POSTGRES_USER', 'mediacms'),
