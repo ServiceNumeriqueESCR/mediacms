@@ -1,14 +1,14 @@
 import os
 
 FRONTEND_HOST = os.getenv('FRONTEND_HOST', 'http://localhost')
-PORTAL_NAME = os.getenv('PORTAL_NAME', 'MediaCMS')
+PORTAL_NAME = os.getenv('PORTAL_NAME', 'Tube CMS')
 SECRET_KEY = os.getenv('SECRET_KEY', 'ma!s3^b-cw!f#7s6s0m3*jx77a@riw(7701**(r=ww%w!2+yk2')
 REDIS_LOCATION = os.getenv('REDIS_LOCATION', 'redis://redis:6379/1')
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv('POSTGRES_NAME', 'Tube ESCR'),
+        "NAME": os.getenv('POSTGRES_NAME', 'MediaCMS'),
         "HOST": os.getenv('POSTGRES_HOST', 'db'),
         "PORT": os.getenv('POSTGRES_PORT', '5432'),
         "USER": os.getenv('POSTGRES_USER', 'mediacms'),
